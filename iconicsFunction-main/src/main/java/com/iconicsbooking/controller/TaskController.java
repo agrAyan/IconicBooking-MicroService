@@ -39,13 +39,13 @@ public class TaskController {
 		headers.add("desc","task added sucessFully");
 		return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(ntask);
 	}
-	// this url is called when the user wants particular id
+	// this url is called when the user wants the task by particular id
 	@GetMapping("tasks/taskId/{taskId}")
 	ResponseEntity<Task> getBytaskId(@PathVariable("taskId") int taskId) {
 		Task ntaskId=taskService.getBytaskId(taskId);
 		return ResponseEntity.status(HttpStatus.OK).body(ntaskId);	
 	}
-	// this url is used to delete the task by using id
+	// this url is used to delete the task by using task id
 	@GetMapping("/tasks/delete/{taskId}")
 	ResponseEntity<String> deleteTask(@PathVariable("taskId")int taskId){
 		taskService.deleteTask(taskId);
@@ -137,7 +137,7 @@ public class TaskController {
 		return ResponseEntity.status(HttpStatus.OK).body(workersList);
 	}
 	
-	//this url is called worker status
+	//this url is called when the user wants to workers by worker status
 	@GetMapping("/tasks/workerstatus/{workerstatus}")
 	public ResponseEntity<List<Workers>> getByWorkerStatus(@PathVariable("workerstatus") String workerstatus){
 		List<Workers> workerStatusList=taskService.getByWorkerStatus(workerstatus);
@@ -145,7 +145,7 @@ public class TaskController {
 	}
 	
 
-	//this url is called worker job type
+	//this url is called when the user wants to workers by worker jobtype
 	@GetMapping("/tasks/workers/jobtype/{type}")
 	public ResponseEntity<List<Workers>> getByJobType(@PathVariable("type") String type){
 		List<Workers> jobType=taskService.getByJobType(type);
@@ -157,14 +157,14 @@ public class TaskController {
 		 String message=taskService.assignTaskToResource(taskId, workerId);
 		 return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
-	//this url is used for delete the workers in task
+	//this url is used for free the workers in task
 	@GetMapping("/tasks/workers/workerId/{workerId}")
 	public ResponseEntity<String> freeResource(@PathVariable("workerId") int workerId) {
 		String message=taskService.freeResource(workerId);
 		return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 	
-	//this url is called workes by id
+	//this url is called when the user wants to workers by workerId
 	@GetMapping("/tasks/worker/workerId/{workerId}")
 	public ResponseEntity<Workers> getWorkersId(@PathVariable("workerId") int workerId) {
 		Workers message=taskService.getByWorkerId(workerId);
