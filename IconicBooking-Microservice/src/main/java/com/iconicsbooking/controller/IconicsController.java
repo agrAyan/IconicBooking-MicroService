@@ -28,32 +28,33 @@ import com.iconicsbooking.service.IconicBookingService;
 public class IconicsController {
 	@Autowired
 	IconicBookingService iBookingService;
-	
+	// this url is called when the user wants to add a company
 	@PostMapping("/company")
 	IconicBooking addCompany(@RequestBody IconicBooking iconicBooking)
 	{
 	return iBookingService.addComapny(iconicBooking);
 	}
-	
+	// this url is called when the user wants to update the company
 	@PutMapping("/company")
 	IconicBooking updateCompany(@RequestBody IconicBooking iconicBooking)
 	{
 	return iBookingService.updateCompany(iconicBooking);
 	}
-	
+	// this url is called when the user wants to delete a company
 	@DeleteMapping("/company/{companyId}")
 	void deleteCompany(@PathVariable("companyId") int companyId)
 	{
 		iBookingService.deleteCompany(companyId);
 	}
+	// this url is called when the user wants to get all details of the company
 	@GetMapping("/company")
 	List<IconicBooking> getAll()
 	{
 		return iBookingService.getAll();
 	}
 	
-	
-	
+		
+	// this url is called when the user wants to get the company by id
 	@GetMapping("/company/companyId/{companyId}")
 	ResponseEntity<IconicBooking> getById(@PathVariable("companyId") int companyId) throws IdNotFoundException
 	{
@@ -64,6 +65,7 @@ public class IconicsController {
 		ResponseEntity<IconicBooking> responseCompany = new ResponseEntity<IconicBooking>(comapanyById,headers,HttpStatus.OK);
 		return responseCompany;
 	}
+	// this url is called when the user wants to get the company by companyName
 	@GetMapping("/company/companyName/{companyName}")
 	ResponseEntity<List<IconicBooking>> getByCompanyName(@PathVariable("companyName") String companyName)
 	{
@@ -72,6 +74,8 @@ public class IconicsController {
 		headers.add("desc","Get eventList By company name");
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(companyByname);
 	}
+	
+	// this url is called when the user wants to get the company by rating
 	@GetMapping("/company/rating/{rating}")
 	ResponseEntity<List<IconicBooking>> getByRating(@PathVariable("rating") double rating)
 	{
@@ -80,6 +84,7 @@ public class IconicsController {
 		headers.add("desc","Get eventList By company rating");
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(companyByRating);
 	}
+	// this url is called when the user wants to get the company by ownerName
 	@GetMapping("/company/ownerName/{ownerName}")
 	ResponseEntity<List<IconicBooking>> getByOwnerName(@PathVariable("ownerName") String ownerName) throws CompanyNotFoundException
 	{
@@ -88,7 +93,7 @@ public class IconicsController {
 		headers.add("desc","Get eventList By company owner name");
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(companyByOwnerName);
 	}
-	
+	// this url is called when the user wants to add the events
 	@JsonProperty
 	@PostMapping("/company/events")
 	public ResponseEntity<Events> addEvent(@RequestBody Events events) {
@@ -96,48 +101,58 @@ public class IconicsController {
 		Events eventAdded= iBookingService.addEvent(events);
 		return ResponseEntity.status(HttpStatus.OK).body(eventAdded);
 	}
+	// this url is called when the user wants to get all the events Details
 	@GetMapping("/company/events")
 	public ResponseEntity<List<Events>> getAllEvents() {
 		List<Events> allEvent= iBookingService.getAllEvents();
 		return ResponseEntity.status(HttpStatus.OK).body(allEvent);
 	}
+	// this url is called when the user wants to get the events by eventId
 	@GetMapping("/company/events/eventId/{eventId}")
 	ResponseEntity<Events> getByEventId(@PathVariable("eventId") int eventId) throws EventsNotFoundException{
 	return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByEventId(eventId));
 	}
+	// this url is called when the user wants to get the events by eventProviderName
 	@GetMapping("/company/events/eventProvider/{eventProvider}")
 	ResponseEntity<List<Events>> getByEventProvider(@PathVariable("eventProvider") String eventProvider){
 		return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByEventProvider(eventProvider));
 	}
+	// this url is called when the user wants to get the events by eventName
 	@GetMapping("/company/events/eventName/{eventName}")
   ResponseEntity< List<Events>> getByEventName(@PathVariable("eventName") String eventName){
 	   return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByEventName(eventName));
    }
+	// this url is called when the user wants to get the events by startdate
 	@GetMapping("/company/events/startDate/{startDate}")
   ResponseEntity<List<Events>> getByStartDate(@PathVariable("startDate") String startDate){
 		 return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByStartDate(startDate));
    }
+	// this url is called when the user wants to get the events by endDate
 	@GetMapping("/company/events/endDate/{endDate}")
     ResponseEntity<List<Events>> getByEndDate(@PathVariable("endDate") String endDate){
     	 return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByEndDate(endDate));
     }
+	// this url is called when the user wants to get the events by status
 	@GetMapping("/company/events/status/{status}")
     ResponseEntity<List<Events>> getByStatus(@PathVariable("status") String status){
     	 return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByStatus(status));
 	}
+	// this url is called when the user wants to get the events by price
 	@GetMapping("/company/events/price/{price}")
     ResponseEntity<List<Events>>  getByPrice(@PathVariable("price") double price){
 		 return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByPrice(price));
     }
+	// this url is called when the user wants to get the events by priority
 	@GetMapping("/company/events/priority/{priority}")
     ResponseEntity<List<Events>> getByPriority(@PathVariable("priority") String priority){
     	 return ResponseEntity.status(HttpStatus.OK).body(iBookingService.getByPriority(priority));
     }
+	// this url is called when the user wants to assign a company to event
 	@GetMapping("/company/events/assign/companyId/{companyId}/eventId/{eventId}")
 	ResponseEntity<Integer> assignEvent(@PathVariable("companyId") int companyId, @PathVariable("eventId") int eventId) {
 		return ResponseEntity.status(HttpStatus.OK).body(iBookingService.assignEvent(companyId, eventId));
 	}
-	
+	// this url is called when the user wants to freeEvents
 	@GetMapping("/company/events/freeEvent/eventId/{eventId}")
 	ResponseEntity<Integer> freeEvent(@PathVariable("eventId") int eventId) {
 		return ResponseEntity.status(HttpStatus.OK).body(iBookingService.freeEvent(eventId));
