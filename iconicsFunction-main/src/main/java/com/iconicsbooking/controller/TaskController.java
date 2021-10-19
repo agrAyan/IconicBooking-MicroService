@@ -26,12 +26,12 @@ public class TaskController {
 	
 	@Autowired
 	ITaskService taskService;
-	
+	// this url is called when the user wants to all tasks
 	@GetMapping("/tasks")
 	public List<Task> getAllTasks(){
 		return taskService.getAllTasks();
 	}
-
+         // this url is called when the user wants to add a tasks
 	@PostMapping("/tasks")
 	ResponseEntity<Task>addTask(@RequestBody Task task){
 		Task ntask=taskService.addTask(task);
@@ -39,19 +39,20 @@ public class TaskController {
 		headers.add("desc","task added sucessFully");
 		return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(ntask);
 	}
-	
+	// this url is called when the user wants particular id
 	@GetMapping("tasks/taskId/{taskId}")
 	ResponseEntity<Task> getBytaskId(@PathVariable("taskId") int taskId) {
 		Task ntaskId=taskService.getBytaskId(taskId);
 		return ResponseEntity.status(HttpStatus.OK).body(ntaskId);	
 	}
-	
+	// this url is used to delete the task by using id
 	@GetMapping("/tasks/delete/{taskId}")
 	ResponseEntity<String> deleteTask(@PathVariable("taskId")int taskId){
 		taskService.deleteTask(taskId);
 		return ResponseEntity.status(HttpStatus.OK).body("deleted successfully");	
 		
 	}
+	// this url is used to update the task
 	@PutMapping("/tasks")
 	ResponseEntity<Task> updateTask(@RequestBody Task task) {
 		//System.out.println(task);
@@ -60,6 +61,7 @@ public class TaskController {
 		return ResponseEntity.status(HttpStatus.OK).body(ntaskId);	
 	}
 	
+	// this url is called when the user wants to get the task by taskname
 	@GetMapping("/tasks/taskName/{name}")
 	ResponseEntity<List<Task>> getByTaskName(@PathVariable("name")String taskName){
 		List<Task> ntaskName=taskService.getByTaskName(taskName);
@@ -68,7 +70,7 @@ public class TaskController {
 	}
 
 
-	
+	// this url is called when the user wants to get the task by startdate
 	@GetMapping("/tasks/startDate/{date}")
 	ResponseEntity<List<Task>> getByTaskStartDate(@PathVariable("date")String startDate){
 		LocalDate startdate = LocalDate.parse(startDate);
@@ -77,7 +79,7 @@ public class TaskController {
 		
 	}
 	
-	
+	// this url is called when the user wants to get the task by enddate
 	@GetMapping("/tasks/endDate/{date}")
 	ResponseEntity<List<Task>> getByTaskEndDate(@PathVariable("date")String endDate){
 		LocalDate enddate = LocalDate.parse(endDate);
@@ -87,7 +89,7 @@ public class TaskController {
 		
 	}
 
-	
+	// this url is called when the user wants to get the task by rating
 	@GetMapping("/tasks/rating/{rating}")
 	ResponseEntity<List<Task>> getByRating(@PathVariable("rating")double rating){
 		List<Task> ratings=taskService.getByRating(rating);
@@ -95,7 +97,7 @@ public class TaskController {
 		
 	}
 	
-
+// this url is called when the user wants to get the task by status
 	@GetMapping("/tasks/status/{status}")
 	ResponseEntity<List<Task>> getByStatus(@PathVariable("status")Status status){
 		//Status statusVal= Status.valueOf(status);
@@ -104,11 +106,13 @@ public class TaskController {
 		
 	}
 	
+	// this url is called when the user wants to get the task by organiser name
 	@GetMapping("/tasks/organiser/{organiser}")
 	public ResponseEntity<List<Task>> getByOrganiser(@PathVariable("organiser") String organizerName){
 		List<Task> organiserList=taskService.getByOrganiser(organizerName);
 		return ResponseEntity.status(HttpStatus.OK).body(organiserList);
 	}
+	// this url is called when the user wants to get the task by duration
 	@GetMapping("/tasks/duration/{duration}")
 	ResponseEntity<List<Task>> getByDuration(@PathVariable("duration")int duration){
 		List<Task> localDates=taskService.getByDuration(duration);
@@ -126,14 +130,14 @@ public class TaskController {
 	//workers ()
 	
 
-	
+	// this url is called when the user wants to get all workers
 	@GetMapping("/tasks/workers")
 	public ResponseEntity<List<Workers>> getAllWorkers(){
 		List<Workers> workersList=taskService.getAllWorkers();
 		return ResponseEntity.status(HttpStatus.OK).body(workersList);
 	}
 	
-	
+	//this url is called worker status
 	@GetMapping("/tasks/workerstatus/{workerstatus}")
 	public ResponseEntity<List<Workers>> getByWorkerStatus(@PathVariable("workerstatus") String workerstatus){
 		List<Workers> workerStatusList=taskService.getByWorkerStatus(workerstatus);
@@ -141,25 +145,26 @@ public class TaskController {
 	}
 	
 
-	
+	//this url is called worker job type
 	@GetMapping("/tasks/workers/jobtype/{type}")
 	public ResponseEntity<List<Workers>> getByJobType(@PathVariable("type") String type){
 		List<Workers> jobType=taskService.getByJobType(type);
 		return ResponseEntity.status(HttpStatus.OK).body(jobType);
 	}
-	
+	//this url is used for assign the task to resources
 	@GetMapping("/tasks/workers/taskId/{taskId}/workerId/{workerId}")
 	public ResponseEntity<String> assignTaskToResource(@PathVariable("taskId") int taskId, @PathVariable("workerId") int workerId){
 		 String message=taskService.assignTaskToResource(taskId, workerId);
 		 return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
-	
+	//this url is used for delete the workers in task
 	@GetMapping("/tasks/workers/workerId/{workerId}")
 	public ResponseEntity<String> freeResource(@PathVariable("workerId") int workerId) {
 		String message=taskService.freeResource(workerId);
 		return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 	
+	//this url is called workes by id
 	@GetMapping("/tasks/worker/workerId/{workerId}")
 	public ResponseEntity<Workers> getWorkersId(@PathVariable("workerId") int workerId) {
 		Workers message=taskService.getByWorkerId(workerId);
