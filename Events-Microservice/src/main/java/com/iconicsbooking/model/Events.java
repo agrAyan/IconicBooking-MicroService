@@ -58,7 +58,7 @@ public class Events {
 	@JoinColumn(name = "event_id")
 	@JsonIgnore
 	Set<Task> taskServiceList;
-
+//bye
 	public Events(String eventName, String eventProvider, LocalDate startDate, LocalDate endDate, Priority priority,
 			Status status, double price) {
 		super();
