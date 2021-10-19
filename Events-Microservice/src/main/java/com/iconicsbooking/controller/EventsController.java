@@ -54,7 +54,7 @@ public class EventsController {
 		//System.out.println(event.getIconicBooking().getCompanyId());
 	return eventService.updateEvent(event);
 	}
-	 //Getting Watch Details by using Id one by one
+	 //Getting event Details by using Id one by one
 	@GetMapping("/events/eventId/{eventId}")  
 	ResponseEntity<Events> getById(@PathVariable("eventId") int eventId)
 	{
@@ -146,14 +146,14 @@ public class EventsController {
 	{
 		return ResponseEntity.status(HttpStatus.OK).body(eventService.addTask(task));
 	}
-	//Calling task details based on task Id in event controller
+	//Calling task details based on task Id in event micro service
 	@GetMapping("/tasks/taskId/{taskId}")
 	ResponseEntity<Task> taskById(@PathVariable("taskId")int taskId)
 	{
 		return ResponseEntity.status(HttpStatus.OK).body(eventService.getBytaskId(taskId));
 	}
 	
-	//Calling task details based on organiser name in event controller
+	//Calling task details based on organiser name in event micro service
 	@GetMapping("/tasks/organiserName/{organiserName}")
 	ResponseEntity<List<Task>>  getByOrganiser(@PathVariable("organiserName") String organiserName)
 	{
@@ -162,7 +162,7 @@ public class EventsController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(task);
 		
 	}
-	//Calling task details based on task name in event controller
+	//Calling task details based on task name in event micro service
 	@GetMapping("/tasks/taskName/{taskName}")
 	ResponseEntity<List<Task>>  getByTaskName(@PathVariable("taskName")  String taskName)
 	{
@@ -170,7 +170,7 @@ public class EventsController {
 		HttpHeaders headers = new HttpHeaders();
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(task);
 	}
-	//Calling task details based on start date in event controller
+	//Calling task details based on start date in event micro service
 	@GetMapping("/tasks/taskStartDate/{taskStartDate}")
 	ResponseEntity<List<Task>> getByTaskStartDate(@PathVariable("taskStartDate")  String startDate)
 	{
@@ -180,7 +180,7 @@ public class EventsController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(task);
 	}
 	
-	//Calling task details based on end date in event controller
+	//Calling task details based on end date in event micro service
 	@GetMapping("/tasks/taskEndDate/{taskEndDate}")
 	ResponseEntity<List<Task>> getByTaskEndStartDate(@PathVariable("taskEndDate")  String taskEndDate)
 	{
@@ -190,7 +190,7 @@ public class EventsController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(task);
 	}
 	
-	//Calling task details based on rating in event controller
+	//Calling task details based on rating in event micro service
 	@GetMapping("/tasks/rating/{rating}")
 	ResponseEntity<List<Task>> getByRating(@PathVariable("rating") double rating)
    {
@@ -199,7 +199,7 @@ public class EventsController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(task);
    }
 	
-	//Calling task details based on status in event controller
+	//Calling task details based on status in event micro service
 	@GetMapping("/tasks/status/{status}")
 	ResponseEntity<List<Task>> getByRating(@PathVariable("status") Status status)
    {
@@ -217,7 +217,7 @@ public class EventsController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(task);
    }
 	
-	//calling assign task method in event controller
+	//calling assign task method in event micro service
 	@GetMapping("/tasks/assginTask/eventId/{eventId}/taskId/{taskId}")
 	ResponseEntity<String> assignTask(@PathVariable("eventId") int eventId, @PathVariable("taskId") int taskId)
    {
@@ -225,7 +225,7 @@ public class EventsController {
 		HttpHeaders headers = new HttpHeaders();
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(value);
    }
-	//calling remove method in event controller
+	//calling remove method in event micro service
 	@GetMapping("/tasks/removeTask/taskId/{taskId}")
 	ResponseEntity<String> removeTask(@PathVariable("taskId") int taskId)
    {
