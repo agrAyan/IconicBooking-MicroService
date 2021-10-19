@@ -32,10 +32,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity   //specifies that the class is an entity and is mapped to a DB table
 public class Events {
 
-	@Id
+	@Id   //It specifies the primary key of an entity
+	//provides for the specification of generation strategies for the values of primary key
 	@GeneratedValue(generator = "event_gen", strategy = GenerationType.AUTO)
 	@SequenceGenerator(name = "event_gen", sequenceName = "event_seq", initialValue = 100, allocationSize = 1)
 	private Integer eventId;
@@ -49,8 +50,8 @@ public class Events {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	private double price;
-	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@ManyToOne   
+	@JoinColumn(name = "company_id")      //it  should not create separate table instead it will this company_id to the event table as foreign key
 	//@JsonIgnore
 	IconicBooking iconicBooking;
 
