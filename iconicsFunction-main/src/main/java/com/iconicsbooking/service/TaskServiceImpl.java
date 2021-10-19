@@ -51,7 +51,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskServiceRepo.save(taskService);
 	}
         
-	// this method is used to get task id
+	// this method is used to get task by taskid
 	@Override
 	public Task getBytaskId(int taskId) {
 		// TODO Auto-generated method stub
@@ -79,7 +79,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskServiceRepo.findAll();
 	}
 
-	  // this method is used to get organiser name
+	  // this method is used to get task by organiser name
 	@Override
 	public List<Task> getByOrganiser(String organiserName) {
 		// TODO Auto-generated method stub
@@ -89,7 +89,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByOrganiser;
 	}
 
-	  // this method is used to get task name
+	  // this method is used to get task by task name
 	@Override
 	public List<Task> getByTaskName(String taskName) {
 		// TODO Auto-generated method stub
@@ -100,7 +100,7 @@ public class TaskServiceImpl implements ITaskService{
 	}
 	
 	
-          // this method is used to get task start date
+          // this method is used to get task by task start date
 	@Override
 	public List<Task> getByTaskStartDate(LocalDate startDate) {
 		List<Task> taskByStartDate= taskServiceRepo.findByStartDate(startDate);
@@ -109,7 +109,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByStartDate;
 	}
 
-	  // this method is used to get task end date
+	  // this method is used to get task by task end date
 	@Override
 	public List<Task> getByTaskEndDate(LocalDate endDate) {
 		List<Task> taskByEndDate= taskServiceRepo.findByEndDate(endDate);
@@ -127,7 +127,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByRating;
 	}
 
-	  // this method is used to get status
+	  // this method is used to get task by task status
 	@Override
 	public List<Task> getByStatus(Status status) {
 		List<Task> taskByStatus= taskServiceRepo.findByStatus(status);
@@ -146,9 +146,8 @@ public class TaskServiceImpl implements ITaskService{
 	}
 	
 	
-	  // this method
-	is used to get worker status
-@Override
+	  // this method  is used to get worker by worker status
+        @Override
 	public List<Workers> getByWorkerStatus(String status){
 	 	String url= BASEURL+"/worker/status/"+status;	
 	 	ResponseEntity<List> response=restTemplate.getForEntity(url, List.class);
@@ -229,7 +228,7 @@ public class TaskServiceImpl implements ITaskService{
 		return "assigned successfully";
 	}
 
-	 // this method is used to delete the task to workers by restTemplate 
+	 // this method is used to free the task to workers by restTemplate 
 
 	@Override
 	public String freeResource(int workerId) {
