@@ -28,9 +28,14 @@ import com.iconicsbooking.repository.TaskServiceRepository;
 @Transactional
 public class TaskServiceImpl implements ITaskService{
 	
+	/*here we are injecting instance of ITaskRepository class
+       into TaskServiceImpl so that we can use ITaskRepository class for accessing instance variables and methods */
+
 	@Autowired
 	TaskServiceRepository taskServiceRepo;
 	
+	//Autowiring the RestTemplate object that is used to connect with other microservices
+
 	@Autowired
 	RestTemplate restTemplate;
 	
@@ -44,36 +49,42 @@ public class TaskServiceImpl implements ITaskService{
 		this.taskServiceRepo = taskServiceRepo;
 	}
 
+	// this  Method is used for adding tasks
 	@Override
 	public Task addTask(Task taskService) {
 		// TODO Auto-generated method stub
 		return taskServiceRepo.save(taskService);
 	}
 
+	// this  Method is used for getting taskId
 	@Override
 	public Task getBytaskId(int taskId) {
 		// TODO Auto-generated method stub
 		return taskServiceRepo.findById(taskId).orElseThrow(() -> new TaskNotFoundException("invalid id"));
 	}
-
+	
+       // this  Method is used for deleting tasks
 	@Override
 	public void deleteTask(int taskId) {
 		 taskServiceRepo.deleteById(taskId);
 		
 	}
 
+	//this Method is used for update task
 	@Override
 	public Task updateTask(Task task) {
 		return taskServiceRepo.save(task);
 		
 	}
 
+	//this Method is used for get all tasks
 	@Override
 	public List<Task> getAllTasks() {
 		// TODO Auto-generated method stub
 		return taskServiceRepo.findAll();
 	}
 
+	//this Method is used for get organiser in task
 	@Override
 	public List<Task> getByOrganiser(String organiserName) {
 		// TODO Auto-generated method stub
@@ -83,6 +94,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByOrganiser;
 	}
 
+	//this Method is used for get taskname in task
 	@Override
 	public List<Task> getByTaskName(String taskName) {
 		// TODO Auto-generated method stub
@@ -92,6 +104,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByTaskName;
 	}
 
+	//this Method is used for get start Task date
 	@Override
 	public List<Task> getByTaskStartDate(LocalDate startDate) {
 		List<Task> taskByStartDate= taskServiceRepo.findByStartDate(startDate);
@@ -100,6 +113,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByStartDate;
 	}
 
+	//this Method is used for get end Task date
 	@Override
 	public List<Task> getByTaskEndDate(LocalDate endDate) {
 		List<Task> taskByEndDate= taskServiceRepo.findByEndDate(endDate);
@@ -108,6 +122,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByEndDate;
 	}
 
+	//this Method is used for get rating
 	@Override
 	public List<Task> getByRating(double rating) {
 		List<Task> taskByRating= taskServiceRepo.findByRating(rating);
@@ -116,6 +131,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByRating;
 	}
 
+	//this Method is used for get status
 	@Override
 	public List<Task> getByStatus(Status status) {
 		List<Task> taskByStatus= taskServiceRepo.findByStatus(status);
@@ -124,6 +140,7 @@ public class TaskServiceImpl implements ITaskService{
 		return taskByStatus;
 	}
 	
+	//this Method is used for get duration
 	@Override
 	public List<Task> getByDuration(int duration) {
 		List<Task> taskByDuration= taskServiceRepo.findByDuration(duration);
@@ -133,7 +150,7 @@ public class TaskServiceImpl implements ITaskService{
 	}
 	
 	
-	
+	//this Method is used for get worker status
 @Override
 	public List<Workers> getByWorkerStatus(String status){
 	 	String url= BASEURL+"/worker/status/"+status;	
@@ -144,6 +161,7 @@ public class TaskServiceImpl implements ITaskService{
 		return response.getBody();
  	}
 
+	//this Method is used for get All workers
 	
 	@Override
 	public List<Workers> getAllWorkers(){
@@ -155,6 +173,7 @@ public class TaskServiceImpl implements ITaskService{
 		return response.getBody();
  	}
 
+	//this Method is used for get worker id
 	@Override
 	public Workers getByWorkerId(int id) {
 		String url= BASEURL+"/worker/workerId/"+id;	
@@ -167,7 +186,7 @@ public class TaskServiceImpl implements ITaskService{
 	
 
 	
-
+//this Method is used for get worker jobe Type
 	@Override
 	public List<Workers> getByJobType(String jobType) {
 		String url= BASEURL+"/worker/jobType/"+jobType;	
@@ -179,7 +198,7 @@ public class TaskServiceImpl implements ITaskService{
 	}
 	
 	
-	
+	//this method is used for assign the task to workers
 
 	@Override
 	public String assignTaskToResource(int taskId, int workerId) {
